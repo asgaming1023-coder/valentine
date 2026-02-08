@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Parvathi ❤️ Valentine</title>
+
+<style>
+/* ================= BASE ================= */
+body{
+    margin:0;
+    height:100vh;
+    background:radial-gradient(circle at top,#0b1d3a,#000);
+    font-family:"Georgia",serif;
+    overflow:hidden;
+    color:white;
+}
+
+/* ================= BACKGROUND ================= */
+.background{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+}
+
+/* Moon */
+.moon{
+    position:absolute;
+    top:60px;
+    right:80px;
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    background:radial-gradient(circle,#fff,#ddd,#aaa);
+    box-shadow:0 0 60px rgba(255,255,255,.4);
+}
+
+/* Fireflies */
+.light{
+    position:absolute;
+    width:6px;
+    height:6px;
+    background:#fff9c4;
+    border-radius:50%;
+    box-shadow:0 0 12px #fff9c4;
+    animation:float 6s infinite ease-in-out;
+}
+.light:nth-child(1){left:20%;bottom:30%;}
+.light:nth-child(2){left:40%;bottom:50%;animation-delay:2s;}
+.light:nth-child(3){left:60%;bottom:35%;animation-delay:4s;}
+.light:nth-child(4){left:75%;bottom:55%;animation-delay:1s;}
+
+@keyframes float{
+    0%,100%{transform:translateY(0);opacity:.3;}
+    50%{transform:translateY(-40px);opacity:1;}
+}
+
+/* Butterflies */
+.butterfly{
+    position:absolute;
+    top:40%;
+    left:-60px;
+    animation:fly 14s linear infinite;
+}
+.butterfly:nth-child(2){top:55%;animation-delay:5s;}
+.butterfly:nth-child(3){top:30%;animation-delay:9s;}
+
+.wing{
+    width:20px;
+    height:30px;
+    background:linear-gradient(#ffb7c5,#ff5f9e);
+    border-radius:50%;
+    position:absolute;
+    animation:flap .4s infinite alternate;
+}
+.wing.left{left:-18px;transform-origin:right center;}
+.wing.right{left:18px;transform-origin:left center;}
+
+@keyframes flap{from{transform:rotate(0);}to{transform:rotate(25deg);}}
+@keyframes fly{from{transform:translateX(0);}to{transform:translateX(120vw);}}
+
+/* ================= PAGE COMMON ================= */
+.page{
+    position:absolute;
+    inset:0;
+    z-index:2;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+
+/* ================= PAGE 1 ================= */
+#page1 h1{
+    font-size:3.2rem;
+    text-align:center;
+    color:#ffb6c1;
+    margin-bottom:30px;
+    text-shadow:0 0 20px rgba(255,100,150,.6);
+}
+
+.photo{
+    width:300px;
+    height:380px;
+    border-radius:25px;
+    overflow:hidden;
+    border:4px solid #ff6b81;
+    box-shadow:0 0 40px rgba(255,100,150,.6);
+    margin-bottom:30px;
+}
+.photo img{width:100%;height:100%;object-fit:cover;}
+
+.buttons{
+    position:relative;
+    width:500px;
+    height:120px;
+}
+button{
+    padding:18px 45px;
+    font-size:1.4rem;
+    border:none;
+    border-radius:40px;
+    cursor:pointer;
+    position:absolute;
+    transition:.3s;
+}
+#yesBtn{background:#ff3366;color:white;left:60px;}
+#yesBtn:hover{transform:scale(1.4);}
+#noBtn{background:#444;color:white;left:280px;}
+
+/* ================= PAGE 2 ================= */
+#page2{display:none;}
+
+.message{
+    font-size:2rem;
+    line-height:1.6;
+    color:#ffd1dc;
+    margin-bottom:35px;
+    text-align:center;
+    animation:fadeIn 2s forwards;
+}
+@keyframes fadeIn{from{opacity:0;transform:scale(.9);}to{opacity:1;}}
+
+/* ================= PLANTS ================= */
+.plant-field{
+    display:flex;
+    gap:80px;
+    margin-bottom:40px;
+}
+
+.plant{
+    position:relative;
+    height:260px;
+    animation:sway 6s infinite;
+    transform-origin:bottom center;
+}
+@keyframes sway{50%{transform:rotate(2deg);}}
+
+.stem{
+    position:absolute;
+    bottom:0;
+    left:50%;
+    width:6px;
+    height:0;
+    background:linear-gradient(#2ecc71,#1e8449);
+    transform:translateX(-50%);
+    animation:growStem 3s forwards;
+}
+@keyframes growStem{to{height:220px;}}
+
+.flower{
+    position:absolute;
+    top:-30px;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+.petal{
+    position:absolute;
+    width:28px;
+    height:42px;
+    border-radius:50%;
+    background:linear-gradient(#b5f5ff,#6ee7f9);
+    transform-origin:bottom center;
+    transform:rotate(var(--r)) scale(0);
+    animation:petalBloom .8s forwards;
+    animation-delay:var(--d);
+    filter:drop-shadow(0 0 8px rgba(180,245,255,.8));
+}
+@keyframes petalBloom{
+    60%{transform:rotate(var(--r)) scale(1.2);}
+    100%{transform:rotate(var(--r)) scale(1);}
+}
+
+.center{
+    position:absolute;
+    width:16px;
+    height:16px;
+    background:gold;
+    border-radius:50%;
+    top:14px;
+    left:6px;
+    animation:pulse 2s infinite;
+}
+@keyframes pulse{50%{transform:scale(1.2);}}
+
+/* ================= GIFT ================= */
+.gift-btn{
+    padding:14px 40px;
+    font-size:1.4rem;
+    border:none;
+    border-radius:40px;
+    background:linear-gradient(135deg,#ff4d6d,#ff85a1);
+    color:white;
+    cursor:pointer;
+    box-shadow:0 0 25px rgba(255,120,160,.6);
+}
+.gift-btn:hover{transform:scale(1.15);}
+
+.gift-modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.75);
+    backdrop-filter:blur(6px);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:10;
+}
+.gift-box{
+    background:#ffd6e0;
+    padding:25px;
+    border-radius:20px;
+    width:90%;
+    max-width:800px;
+    animation:pop .6s ease;
+}
+@keyframes pop{from{transform:scale(.8);opacity:0;}to{transform:scale(1);}}
+
+.gift-title{
+    text-align:center;
+    font-size:2rem;
+    margin-bottom:20px;
+    color:#7a1c32;
+}
+
+.photo-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:20px;
+}
+.photo-card{
+    background:#fff;
+    padding:10px;
+    border-radius:12px;
+    box-shadow:0 0 15px rgba(0,0,0,.2);
+    text-align:center;
+}
+.photo-card img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+    border-radius:10px;
+}
+.photo-card p{
+    margin-top:8px;
+    font-size:.95rem;
+    color:#7a1c32;
+}
+
+.close-gift{text-align:center;margin-top:20px;}
+.close-gift button{
+    padding:10px 30px;
+    border:none;
+    border-radius:30px;
+    background:#ff4d6d;
+    color:white;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<!-- BACKGROUND -->
+<div class="background">
+    <div class="moon"></div>
+    <div class="light"></div><div class="light"></div><div class="light"></div><div class="light"></div>
+    <div class="butterfly"><div class="wing left"></div><div class="wing right"></div></div>
+    <div class="butterfly"><div class="wing left"></div><div class="wing right"></div></div>
+    <div class="butterfly"><div class="wing left"></div><div class="wing right"></div></div>
+</div>
+
+<!-- PAGE 1 -->
+<div class="page" id="page1">
+    <h1>PARVATHI,<br>WILL YOU BE MY VALENTINE? ❤️</h1>
+    <div class="photo">
+        <img src="https://uploads.onecompiler.io/44czkpya4/44czkh23r/WhatsApp%20Image%202026-02-03%20at%2010.49.47%20AM.jpeg">
+    </div>
+    <div class="buttons">
+        <button id="yesBtn">YES 💖</button>
+        <button id="noBtn">NO 🙈</button>
+    </div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+    <div class="message">
+        🌹 Parvathi, I love you endlessly 🌹<br>
+        You are my peace, my home, my forever 💕<br>
+        Happy Valentine’s Day ❤️<br>
+        20/10/24 &nbsp; 1:39 AM
+    </div>
+
+    <div class="plant-field">
+        <div class="plant">
+            <div class="stem">
+                <div class="flower">
+                    <div class="petal" style="--r:0deg;--d:2.5s"></div>
+                    <div class="petal" style="--r:60deg;--d:2.7s"></div>
+                    <div class="petal" style="--r:120deg;--d:2.9s"></div>
+                    <div class="petal" style="--r:180deg;--d:3.1s"></div>
+                    <div class="petal" style="--r:240deg;--d:3.3s"></div>
+                    <div class="petal" style="--r:300deg;--d:3.5s"></div>
+                    <div class="center"></div>
+                </div>
+            </div>
+        </div>
+        <div class="plant">
+            <div class="stem" style="animation-delay:.5s">
+                <div class="flower">
+                    <div class="petal" style="--r:0deg;--d:3s"></div>
+                    <div class="petal" style="--r:60deg;--d:3.2s"></div>
+                    <div class="petal" style="--r:120deg;--d:3.4s"></div>
+                    <div class="petal" style="--r:180deg;--d:3.6s"></div>
+                    <div class="petal" style="--r:240deg;--d:3.8s"></div>
+                    <div class="petal" style="--r:300deg;--d:4s"></div>
+                    <div class="center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="gift-btn" id="giftBtn">🎁 GIFT</button>
+</div>
+
+<!-- GIFT MODAL -->
+<div class="gift-modal" id="giftModal">
+    <div class="gift-box">
+        <div class="gift-title">Look at this cutie 🥺❤️</div>
+        <div class="photo-grid">
+            <div class="photo-card"><img src="https://uploads.onecompiler.io/44czkpya4/44czmyxw5/WhatsApp%20Image%202026-02-08%20at%207.55.57%20PM.jpeg"><p>Sweet Hello</p></div>
+            <div class="photo-card"><img src="https://uploads.onecompiler.io/44czkpya4/44czmyxw5/WhatsApp%20Image%202026-02-08%20at%207.55.57%20PM%20(1).jpeg"><p>True Smile</p></div>
+            <div class="photo-card"><img src="https://uploads.onecompiler.io/44czkpya4/44czmyxw5/WhatsApp%20Image%202026-02-08%20at%207.55.59%20PM%20(1).jpeg"><p>Perfect Day</p></div>
+            <div class="photo-card"><img src="https://uploads.onecompiler.io/44czkpya4/44czmyxw5/WhatsApp%20Image%202026-02-08%20at%207.55.58%20PM%20(2).jpeg"><p>Only Us</p></div>
+            <div class="photo-card"><img src="https://uploads.onecompiler.io/44czkpya4/44czmyxw5/WhatsApp%20Image%202026-02-08%20at%207.55.58%20PM.jpeg"><p>My Home</p></div>
+            <div class="photo-card"><img src="https://uploads.onecompiler.io/44czkpya4/44czmyxw5/WhatsApp%20Image%202026-02-08%20at%207.55.58%20PM%20(1).jpeg"><p>Forever Us</p></div>
+        </div>
+        <div class="close-gift">
+            <button onclick="closeGift()">Close 💕</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const noBtn=document.getElementById("noBtn");
+const yesBtn=document.getElementById("yesBtn");
+const page1=document.getElementById("page1");
+const page2=document.getElementById("page2");
+const giftBtn=document.getElementById("giftBtn");
+const giftModal=document.getElementById("giftModal");
+
+noBtn.addEventListener("mouseover",()=>{
+    const x=Math.random()*300-150;
+    const y=Math.random()*150-75;
+    noBtn.style.transform=`translate(${x}px,${y}px)`;
+});
+
+yesBtn.addEventListener("click",()=>{
+    page1.style.display="none";
+    page2.style.display="flex";
+});
+
+giftBtn.addEventListener("click",()=>{
+    giftModal.style.display="flex";
+});
+
+function closeGift(){
+    giftModal.style.display="none";
+}
+</script>
+
+</body>
+</html>
